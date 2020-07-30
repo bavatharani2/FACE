@@ -1,0 +1,64 @@
+6.1.1.	FACE DETECTION:
+
+import numpy as np import cv2
+import matplotlib.pyplot as plt
+
+%cd /content/drive/My Drive/Colab Notebooks 
+import cv2
+
+import numpy as np
+
+import matplotlib.pyplot as plt
+
+face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + &#39;ha arcasca
+de_frontalface_default.xml&#39;)
+
+img = cv2.imread(&#39;avika(1).jpg&#39;)
+
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) faces = face_cascade.detectMultiScale(gray, 1.3, 5)
+ 
+print(faces)
+
+for (x,y,w,h) in faces: cv2.rectangle(img,(x,y),(x+w,y+h),(0,255,0),2) roigray = gray[y:y+h, x:x+w]
+roicolor = img[y:y+h, x:x+w] plt.grid(None)
+plt.xticks([])
+
+plt.yticks([])
+
+imgplot1 = plt.imshow(img)
+
+6.1.2.	FACE RECOGNITION:
+
+from google.colab import drive drive.mount(&#39;/content/drive&#39;)
+
+
+!apt-get install build-essential cmake
+
+!apt-get install libopenblas-dev liblapack-dev
+
+!pip3 install dlib
+
+!pip3 install face_recognition
+ 
+%cd /content/drive/My Drive/Colab Notebooks 
+import os
+
+import face_recognition import numpy as np
+import matplotlib.pyplot as plt
+images = os.listdir(&#39;images&#39;) 
+image_to_be_matched = face_recognition.load_image_file(&#39;avika. jpg&#39;)
+
+
+image_to_be_matched_encoded = face_recognition.face_encodings(
+image_to_be_matched)[0] 
+for image in images: 
+ 
+current_image = face_recognition.load_image_file(&quot;images/&quo t; + image)
+current_image_encoded = face_recognition.face_encodings(current_i
+ma ge)[0]
+result = face_recognition.compare_faces(
+[image_to_be_matched_encoded], current_image_encoded) 
+if result[0] == True:
+
+print(&quot;mateched:	&quot;+ image) else:
+print (&quot;Not matched: &quot; +
